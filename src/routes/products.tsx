@@ -9,9 +9,9 @@ type ProductSearch = { q?: string | undefined; cat?: CategoryId | undefined };
 
 export const Route = createFileRoute("/products")({
   validateSearch: (search: Record<string, unknown>): ProductSearch => ({
-    q: typeof search.q === "string" && search.q ? search.q : undefined,
-    cat: categories.some((c) => c.id === search.cat)
-      ? (search.cat as CategoryId)
+    q: typeof search['q'] === "string" && search['q'] ? search['q'] : undefined,
+    cat: categories.some((c) => c.id === search['cat'])
+      ? (search['cat'] as CategoryId)
       : undefined,
   }),
   head: () => ({
