@@ -181,14 +181,26 @@ function CartPage() {
         <aside className="h-fit rounded-2xl border border-border bg-card p-5 shadow-card lg:sticky lg:top-24">
           <h2 className="text-lg font-extrabold text-foreground">إتمام الطلب</h2>
 
+          {freeDelivery && (
+            <div className="mt-4 rounded-xl bg-green-50 p-3 text-center text-sm font-bold text-green-700 dark:bg-green-950 dark:text-green-300">
+              🎉 مبروك! حصلت على توصيل مجاني
+            </div>
+          )}
+
           <dl className="mt-4 space-y-2 text-sm">
+            <div className="flex justify-between">
+              <dt className="text-muted-foreground">إجمالي القطع</dt>
+              <dd className="font-bold">{count} قطعة</dd>
+            </div>
             <div className="flex justify-between">
               <dt className="text-muted-foreground">إجمالي المنتجات</dt>
               <dd className="font-bold">{formatPrice(total)}</dd>
             </div>
             <div className="flex justify-between">
               <dt className="text-muted-foreground">رسوم التوصيل</dt>
-              <dd className="font-bold">{formatPrice(DELIVERY)}</dd>
+              <dd className={`font-bold ${freeDelivery ? "text-green-600" : ""}`}>
+                {freeDelivery ? "مجاني" : formatPrice(delivery)}
+              </dd>
             </div>
             <div className="flex justify-between border-t border-border pt-2 text-base">
               <dt className="font-bold">المجموع الكلي</dt>
