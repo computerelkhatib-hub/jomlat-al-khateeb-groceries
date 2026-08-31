@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useCart } from "@/lib/cart";
+import { useStore } from "@/lib/store";
 import { STORE } from "@/data/products";
 
 const links = [
@@ -19,8 +20,15 @@ export function Navbar() {
   const [q, setQ] = useState("");
   const [open, setOpen] = useState(false);
 
+  const { tryLogin } = useStore();
+
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (tryLogin(q)) {
+      setQ("");
+      setOpen(false);
+      return;
+    }
     navigate({ to: "/products", search: { q: q || undefined, cat: undefined } });
     setOpen(false);
   };
