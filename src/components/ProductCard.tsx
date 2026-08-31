@@ -65,6 +65,18 @@ export function ProductCard({ product }: { product: Product }) {
           <ShoppingCart className="size-4" />
           أضف إلى السلة
         </Button>
+        {isAdmin && (
+          <Button
+            variant="outline"
+            className="mt-2 w-full rounded-xl text-destructive"
+            onClick={() => {
+              deleteProduct(product.id);
+              toast.success("تم حذف المنتج من المتجر");
+            }}
+          >
+            <Trash2 className="size-4" /> حذف المنتج
+          </Button>
+        )}
       </div>
     </article>
   );
