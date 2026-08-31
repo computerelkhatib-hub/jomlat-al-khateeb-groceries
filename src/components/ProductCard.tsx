@@ -1,11 +1,13 @@
-import { ShoppingCart } from "lucide-react";
+import { ShoppingCart, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { categoryLabel, type Product } from "@/data/products";
 import { formatPrice, useCart } from "@/lib/cart";
+import { useStore } from "@/lib/store";
 
 export function ProductCard({ product }: { product: Product }) {
   const { add } = useCart();
+  const { isAdmin, deleteProduct } = useStore();
 
   return (
     <article className="group flex flex-col overflow-hidden rounded-2xl border border-border bg-card shadow-soft transition-all hover:-translate-y-1 hover:shadow-card">
@@ -63,6 +65,18 @@ export function ProductCard({ product }: { product: Product }) {
           <ShoppingCart className="size-4" />
           أضف إلى السلة
         </Button>
+        {isAdmin && (
+          <Button
+            variant="outline"
+            className="mt-2 w-full rounded-xl text-destructive"
+            onClick={() => {
+              deleteProduct(product.id);
+              toast.success("تم حذف المنتج من المتجر");
+            }}
+          >
+            <Trash2 className="size-4" /> حذف المنتج
+          </Button>
+        )}
       </div>
     </article>
   );

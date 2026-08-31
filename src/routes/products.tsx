@@ -3,7 +3,8 @@ import { Search, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ProductCard } from "@/components/ProductCard";
-import { categories, products, type CategoryId } from "@/data/products";
+import { categories, type CategoryId } from "@/data/products";
+import { useStore } from "@/lib/store";
 
 type ProductSearch = { q?: string | undefined; cat?: CategoryId | undefined };
 
@@ -35,12 +36,13 @@ export const Route = createFileRoute("/products")({
 function ProductsPage() {
   const { q, cat } = Route.useSearch();
   const navigate = useNavigate({ from: "/products" });
+  const { catalog, tryLogin } = useStore();
 
   const setSearch = (next: Partial<ProductSearch>) =>
     navigate({ search: (prev) => ({ ...prev, ...next }) });
 
   const term = (q ?? "").trim();
-  const filtered = products.filter(
+  const filtered = catalog.filter(
     (p) => (!cat || p.category === cat) && (!term || p.name.includes(term)),
   );
 
@@ -57,6 +59,12 @@ function ProductsPage() {
         <Search className="pointer-events-none absolute inset-y-0 start-3 my-auto size-4 text-muted-foreground" />
         <Input
           value={q ?? ""}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && tryLogin(q ?? "")) {
+              e.preventDefault();
+              setSearch({ q: undefined });
+            }
+          }}
           onChange={(e) => setSearch({ q: e.target.value || undefined })}
           placeholder="ابحث باسم المنتج…"
           aria-label="بحث فوري عن المنتجات"

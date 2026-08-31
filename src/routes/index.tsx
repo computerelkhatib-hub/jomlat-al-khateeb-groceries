@@ -3,7 +3,9 @@ import { ArrowLeft, BadgePercent, Truck, ShieldCheck } from "lucide-react";
 import heroBanner from "@/assets/hero-banner.jpg";
 import { Button } from "@/components/ui/button";
 import { ProductCard } from "@/components/ProductCard";
-import { categories, products, STORE } from "@/data/products";
+import { categories, STORE } from "@/data/products";
+import type { Product } from "@/data/products";
+import { useStore } from "@/lib/store";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -25,8 +27,9 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
-  const latest = products.filter((p) => p.isNew).slice(0, 8);
-  const best = products.filter((p) => p.isBestSeller).slice(0, 8);
+  const { catalog, offers } = useStore();
+  const latest = catalog.filter((p) => p.isNew).slice(0, 8);
+  const best = catalog.filter((p) => p.isBestSeller).slice(0, 8);
 
   return (
     <div>
@@ -107,13 +110,14 @@ function Home() {
         </div>
       </section>
 
+      {offers.length > 0 && <ProductRow title="العروض والخصومات" items={offers.slice(0, 8)} />}
       <ProductRow title="أحدث المنتجات" items={latest} />
       <ProductRow title="الأكثر مبيعاً" items={best} />
     </div>
   );
 }
 
-function ProductRow({ title, items }: { title: string; items: typeof products }) {
+function ProductRow({ title, items }: { title: string; items: Product[] }) {
   return (
     <section className="mx-auto max-w-7xl px-4 py-8">
       <div className="mb-5 flex items-center justify-between gap-4">

@@ -12,6 +12,8 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { CartProvider } from "@/lib/cart";
+import { StoreProvider } from "@/lib/store";
+import { AdminDialog } from "@/components/AdminDialog";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
@@ -127,6 +129,7 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
+      <StoreProvider>
       <CartProvider>
         <div className="flex min-h-screen flex-col font-sans">
           <Navbar />
@@ -136,8 +139,10 @@ function RootComponent() {
           </main>
           <Footer />
         </div>
+        <AdminDialog />
         <Toaster position="top-center" richColors />
       </CartProvider>
+      </StoreProvider>
     </QueryClientProvider>
   );
 }

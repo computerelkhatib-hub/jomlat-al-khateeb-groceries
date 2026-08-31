@@ -220,7 +220,7 @@ function CartPage() {
                 maxLength={200}
                 value={form.address}
                 onChange={(e) => setForm({ ...form, address: e.target.value })}
-                placeholder="الحي، الشارع، رقم المبنى"
+                placeholder="مثال: أسيوط - الوليدية - بجوار جامع الخطبة"
               />
             </Field>
             <Field id="notes" label="ملاحظات (اختياري)" error={errors['notes']}>
