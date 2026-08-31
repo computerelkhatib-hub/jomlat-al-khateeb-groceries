@@ -5,7 +5,7 @@ import { Input } from "@/components/ui/input";
 import { ProductCard } from "@/components/ProductCard";
 import { categories, products, type CategoryId } from "@/data/products";
 
-type ProductSearch = { q?: string; cat?: CategoryId };
+type ProductSearch = { q?: string | undefined; cat?: CategoryId | undefined };
 
 export const Route = createFileRoute("/products")({
   validateSearch: (search: Record<string, unknown>): ProductSearch => ({

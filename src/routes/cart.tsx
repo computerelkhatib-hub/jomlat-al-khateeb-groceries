@@ -193,7 +193,7 @@ function CartPage() {
           </dl>
 
           <form onSubmit={submit} className="mt-5 space-y-3" noValidate>
-            <Field id="name" label="الاسم بالكامل" error={errors.name}>
+            <Field id="name" label="الاسم بالكامل" error={errors['name']}>
               <Input
                 id="name"
                 value={form.name}
@@ -202,7 +202,7 @@ function CartPage() {
                 placeholder="مثال: محمد الخطيب"
               />
             </Field>
-            <Field id="phone" label="رقم الهاتف" error={errors.phone}>
+            <Field id="phone" label="رقم الهاتف" error={errors['phone']}>
               <Input
                 id="phone"
                 dir="ltr"
@@ -213,7 +213,7 @@ function CartPage() {
                 placeholder="01xxxxxxxxx"
               />
             </Field>
-            <Field id="address" label="العنوان" error={errors.address}>
+            <Field id="address" label="العنوان" error={errors['address']}>
               <Textarea
                 id="address"
                 rows={2}
@@ -223,7 +223,7 @@ function CartPage() {
                 placeholder="الحي، الشارع، رقم المبنى"
               />
             </Field>
-            <Field id="notes" label="ملاحظات (اختياري)" error={errors.notes}>
+            <Field id="notes" label="ملاحظات (اختياري)" error={errors['notes']}>
               <Textarea
                 id="notes"
                 rows={2}
@@ -255,7 +255,7 @@ function Field({
 }: {
   id: string;
   label: string;
-  error?: string;
+  error?: string | undefined;
   children: React.ReactNode;
 }) {
   return (

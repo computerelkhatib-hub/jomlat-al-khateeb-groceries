@@ -46,7 +46,7 @@ export const categoryLabel = (id: CategoryId) =>
 export const products: Product[] = [
   { id: "1", name: "جبنة بيضاء بلدية", price: 45, unit: "كيلو", category: "dairy", image: dairy, isBestSeller: true, isNew: true },
   { id: "2", name: "لبن زبادي طبيعي", price: 12, unit: "علبة", category: "dairy", image: dairy },
-  { id: "3", name: "جبنة رومي مستوردة", price: 130, unit: "كيلو", category: "dairy", oldPrice: 150 },
+  { id: "3", name: "جبنة رومي مستوردة", price: 130, unit: "كيلو", category: "dairy", image: dairy, oldPrice: 150 },
   { id: "4", name: "تونة قطع طبيعية", price: 38, unit: "علبة", category: "canned", image: canned, isBestSeller: true },
   { id: "5", name: "فول مدمس معلب", price: 15, unit: "علبة", category: "canned", image: canned, isNew: true },
   { id: "6", name: "ذرة حلوة معلبة", price: 22, unit: "علبة", category: "canned", image: canned },
@@ -63,11 +63,6 @@ export const products: Product[] = [
   { id: "17", name: "منظف أرضيات معطر", price: 35, unit: "لتر", category: "cleaning", image: clean },
   { id: "18", name: "سائل غسيل الأطباق", price: 27, unit: "لتر", category: "cleaning", image: clean, isNew: true },
 ];
-
-// fallback image for items without a dedicated photo
-products.forEach((p) => {
-  if (!p.image) p.image = dairy;
-});
 
 export const STORE = {
   name: "جملة الخطيب",
