@@ -135,8 +135,14 @@ function AddProductForm({
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
     const p = Number(price);
-    if (name.trim().length < 2) return toast.error("اسم المنتج مطلوب");
-    if (!Number.isFinite(p) || p <= 0) return toast.error("أدخل سعراً صحيحاً");
+    if (name.trim().length < 2) {
+      toast.error("اسم المنتج مطلوب");
+      return;
+    }
+    if (!Number.isFinite(p) || p <= 0) {
+      toast.error("أدخل سعراً صحيحاً");
+      return;
+    }
     onAdd({
       name: name.trim().slice(0, 80),
       price: p,
@@ -235,9 +241,14 @@ function OfferRow({
           onClick={() => {
             const a = Number(after);
             const b = before ? Number(before) : undefined;
-            if (!Number.isFinite(a) || a <= 0) return toast.error("سعر غير صحيح");
-            if (b !== undefined && (!Number.isFinite(b) || b <= a))
-              return toast.error("السعر قبل الخصم يجب أن يكون أكبر");
+            if (!Number.isFinite(a) || a <= 0) {
+              toast.error("سعر غير صحيح");
+              return;
+            }
+            if (b !== undefined && (!Number.isFinite(b) || b <= a)) {
+              toast.error("السعر قبل الخصم يجب أن يكون أكبر");
+              return;
+            }
             onSave(a, b);
           }}
         >
