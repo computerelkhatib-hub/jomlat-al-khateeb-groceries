@@ -39,14 +39,17 @@ const orderSchema = z.object({
   notes: z.string().trim().max(300, "الملاحظات طويلة جداً").optional(),
 });
 
-const DELIVERY = 25;
+const DELIVERY_FEE = 15;
+const FREE_DELIVERY_THRESHOLD = 5;
 
 function CartPage() {
-  const { items, setQty, remove, total, clear } = useCart();
+  const { items, count, setQty, remove, total, clear } = useCart();
   const [form, setForm] = useState({ name: "", phone: "", address: "", notes: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
 
-  const grand = items.length ? total + DELIVERY : 0;
+  const delivery = items.length ? (count >= FREE_DELIVERY_THRESHOLD ? 0 : DELIVERY_FEE) : 0;
+  const grand = items.length ? total + delivery : 0;
+  const freeDelivery = items.length && count >= FREE_DELIVERY_THRESHOLD;
 
   const buildMessage = () => {
     const lines = items.map(
